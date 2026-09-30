@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stillhouse Coffee — Makers for the daily ritual</title>
+  <style>
+    :root {
+      --bg: #F4F4F1;
+      --surface: #F4F4F1;
+      --fg: #0C0C09;
+      --muted: #5F5D56;
+      --border: #D8D8D1;
+      --accent: #312C85;
+      --accent-soft: color-mix(in oklch, var(--accent) 12%, transparent);
+      --fg-soft: color-mix(in oklch, var(--fg) 6%, transparent);
+      --font-display: Iowan Old Style, Charter, Georgia, Times New Roman, serif;
+      --font-body: -apple-system, BlinkMacSystemFont, Segoe UI, system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --fs-h1: clamp(44px, 7vw, 82px);
+      --fs-h2: clamp(32px, 4.5vw, 54px);
+      --fs-body: 16px;
+      --gutter: 32px;
+      --container: 1160px;
+      --gap-sm: 12px;
+      --gap-md: 20px;
+      --gap-lg: 32px;
+      --gap-xl: 56px;
+      --gap-2xl: 96px;
+      --radius: 12px;
+      --radius-lg: 22px;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.55;-webkit-font-smoothing:antialiased}
+    img,svg{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;cursor:pointer}
+    p{margin:0;text-wrap:pretty}
+    h1,h2,h3{margin:0;text-wrap:balance}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+    .container{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+    .section{padding-block:clamp(64px,9vw,var(--gap-2xl))}
+    .section + .section{border-top:1px solid var(--border)}
+    .topnav{position:sticky;top:0;z-index:10;background:color-mix(in oklch,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .topnav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:16px}
+    .logo{font-family:var(--font-display);font-size:21px;font-weight:600;letter-spacing:-.02em}
+    .topnav nav{display:flex;gap:28px;margin-left:auto;margin-right:8px}
+    .topnav nav a{font-size:14px;color:var(--muted)}
+    .topnav nav a:hover{color:var(--fg)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border:1px solid transparent;border-radius:var(--radius);font-size:14px;font-weight:600;transition:transform .15s ease,background .15s ease,border-color .15s ease,color .15s ease}
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+    .btn-primary:hover{background:var(--accent);border-color:var(--accent)}
+    .btn-secondary{background:transparent;color:var(--fg);border-color:var(--border)}
+    .btn-secondary:hover{border-color:var(--fg)}
+    .btn-arrow::after{content:'→';transition:transform .15s ease}.btn-arrow:hover::after{transform:translateX(3px)}
+    .hero{padding-block:clamp(72px,11vw,150px)}
+    .hero-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px, .9fr);gap:clamp(48px,8vw,120px);align-items:center}
+    .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+    h1{font-family:var(--font-display);font-size:var(--fs-h1);line-height:1.02;letter-spacing:-.045em;max-width:8ch}
+    .lead{font-size:19px;line-height:1.55;color:var(--muted);max-width:52ch;margin-top:24px}
+    .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+    .hero-note{font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-top:18px}
+    .maker-stage{position:relative;min-height:430px;display:grid;place-items:center;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--fg-soft);overflow:hidden}
+    .maker-stage::before{content:'';position:absolute;width:320px;height:320px;border:1px solid var(--border);border-radius:50%;opacity:.55}
+    .maker-stage::after{content:'BUILT FOR THE FIRST CUP';position:absolute;right:22px;bottom:20px;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--muted);writing-mode:vertical-rl}
+    .maker-svg{position:relative;width:min(330px,78%);filter:drop-shadow(0 20px 18px color-mix(in oklch,var(--fg) 16%,transparent))}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:56px}
+    h2{font-family:var(--font-display);font-size:var(--fs-h2);line-height:1.05;letter-spacing:-.035em;max-width:13ch}
+    .section-intro{max-width:35ch;color:var(--muted);font-size:15px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap-lg)}
+    .feature{border-top:1px solid var(--fg);padding-top:20px}
+    .feature-index{font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:40px}
+    h3{font-family:var(--font-display);font-size:21px;line-height:1.25;letter-spacing:-.02em;margin-bottom:10px}
+    .feature p{color:var(--muted);font-size:15px;max-width:30ch}
+    .models{background:var(--fg);color:var(--bg)}
+    .models .section-head{align-items:start}.models .eyebrow{color:var(--bg)}.models .section-intro{color:color-mix(in oklch,var(--bg) 68%,transparent)}
+    .model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .model-card{border:1px solid color-mix(in oklch,var(--bg) 25%,transparent);border-radius:var(--radius-lg);padding:24px;display:flex;flex-direction:column;min-height:420px;transition:border-color .2s ease,transform .2s ease}
+    .model-card:hover{border-color:var(--bg);transform:translateY(-3px)}
+    .model-card.featured{border-color:var(--bg)}
+    .model-top{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:24px}
+    .model-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:color-mix(in oklch,var(--bg) 65%,transparent)}
+    .pill{display:inline-flex;padding:4px 8px;border:1px solid color-mix(in oklch,var(--bg) 36%,transparent);border-radius:999px;font-family:var(--font-mono);font-size:10px;color:var(--bg);text-transform:uppercase;letter-spacing:.06em}
+    .model-drawing{height:160px;display:grid;place-items:center;margin-bottom:28px}
+    .model-drawing svg{height:150px;width:auto}
+    .model-card h3{font-family:var(--font-display);font-size:30px;font-weight:500;margin-bottom:8px}
+    .model-card p{color:color-mix(in oklch,var(--bg) 68%,transparent);font-size:14px;min-height:48px}
+    .model-footer{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-top:auto;padding-top:28px}
+    .price{font-family:var(--font-mono);font-size:14px}.price small{display:block;font-family:var(--font-body);font-size:11px;color:color-mix(in oklch,var(--bg) 55%,transparent);margin-top:3px}
+    .model-card .btn-secondary{color:var(--bg);border-color:color-mix(in oklch,var(--bg) 34%,transparent)}.model-card .btn-secondary:hover{border-color:var(--bg)}
+    .table-wrap{overflow-x:auto}.ds-table{width:100%;border-collapse:collapse;font-size:14px;min-width:650px}.ds-table th,.ds-table td{padding:16px 14px;border-bottom:1px solid var(--border);text-align:left}.ds-table th{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}.ds-table th:not(:first-child),.ds-table td:not(:first-child){text-align:center}.ds-table td:first-child{font-weight:600}.ds-table tbody tr:hover{background:var(--fg-soft)}
+    .check{font-family:var(--font-mono);font-size:15px}.muted{color:var(--muted)}
+    .cta{text-align:center}.cta h2{margin-inline:auto;max-width:12ch}.cta .lead{margin:18px auto 30px}.pagefoot{padding-block:28px;color:var(--muted);font-size:13px;border-top:1px solid var(--border)}.pagefoot-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.status{min-height:20px;margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+    @media (max-width:920px){.hero-split{grid-template-columns:1fr}.maker-stage{min-height:350px}.grid-3,.model-grid{grid-template-columns:1fr}.section-head{display:block;margin-bottom:36px}.section-intro{margin-top:16px}.model-card{min-height:380px}.topnav nav{gap:14px}}
+    @media (max-width:600px){:root{--gutter:20px}.topnav-inner{flex-wrap:wrap}.topnav nav{order:3;width:100%;justify-content:space-between;margin:0}.topnav .btn{padding:10px 14px;font-size:13px}h1{max-width:10ch}.hero-cta .btn{width:100%}.maker-stage{min-height:300px}.maker-stage::after{display:none}.section{padding-block:60px}.model-card{padding:20px}}
+  </style>
+</head>
+<body>
+  <header class="topnav" data-od-id="topnav">
+    <div class="container topnav-inner">
+      <a class="logo" href="#top" aria-label="Stillhouse home">Stillhouse</a>
+      <nav aria-label="Primary navigation">
+        <a href="#makers">Makers</a>
+        <a href="#compare">Compare</a>
+        <a href="#story">Our approach</a>
+      </nav>
+      <a class="btn btn-primary" href="#makers">Shop makers</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="section hero" data-od-id="hero">
+      <div class="container hero-split">
+        <div>
+          <p class="eyebrow">Coffee, considered</p>
+          <h1>Better mornings start with the maker.</h1>
+          <p class="lead">Thoughtful coffee makers for people who care about the quiet parts: water, temperature, timing, and the first sip.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#makers">Find your maker</a>
+            <a class="btn btn-secondary btn-arrow" href="#story">Why Stillhouse</a>
+          </div>
+          <p class="hero-note">Free shipping on orders over $75 · 2-year warranty</p>
+        </div>
+        <div class="maker-stage" aria-label="Illustration of the Stillhouse No. 02 coffee maker">
+          <svg class="maker-svg" viewBox="0 0 360 420" role="img" aria-labelledby="maker-title maker-desc">
+            <title id="maker-title">Stillhouse No. 02 coffee maker</title>
+            <desc id="maker-desc">A minimal illustration of a black pour-over coffee maker with a glass carafe.</desc>
+            <path d="M92 94h182l-19 40H111L92 94Z" fill="var(--fg)"/>
+            <path d="M122 134h122l-17 70H139l-17-70Z" fill="var(--fg)"/>
+            <path d="M144 204h78l-14 42h-50l-14-42Z" fill="var(--fg)"/>
+            <path d="M124 246h118l-18 104H142l-18-104Z" fill="var(--surface)" stroke="var(--fg)" stroke-width="4"/>
+            <path d="M145 273c13 9 23 13 38 13s26-4 38-13v45c-13 8-24 11-38 11s-25-3-38-11v-45Z" fill="var(--fg)" opacity=".9"/>
+            <path d="M242 260c26 0 47 17 47 39s-21 39-47 39" fill="none" stroke="var(--fg)" stroke-width="7" stroke-linecap="round"/>
+            <path d="M90 350h188" stroke="var(--fg)" stroke-width="8" stroke-linecap="round"/>
+            <path d="M158 74c4-16 10-24 22-29M195 74c4-16 10-24 22-29" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="story" data-od-id="features">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">The Stillhouse standard</p><h2>Less fuss. More flavor.</h2></div>
+          <p class="section-intro">Every decision is there for a reason. No blinking dashboards, no disposable parts, no shortcuts that show up in the cup.</p>
+        </div>
+        <div class="grid-3">
+          <article class="feature"><div class="feature-index">01 / Control</div><h3>Stable heat, from first pour to last.</h3><p>Precision temperature control keeps extraction steady, so your light roasts stay bright and your dark roasts stay balanced.</p></article>
+          <article class="feature"><div class="feature-index">02 / Clarity</div><h3>A window into the ritual.</h3><p>Clear water lines, tactile controls, and a quiet brew cycle let you see what matters without adding noise.</p></article>
+          <article class="feature"><div class="feature-index">03 / Care</div><h3>Made to stay on the counter.</h3><p>Repairable components and considered materials mean your daily maker can become part of the kitchen, not clutter in a cupboard.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section models" id="makers" data-od-id="makers">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">Choose your ritual</p><h2>Three ways to make it yours.</h2></div>
+          <p class="section-intro">Start with your morning, not a spec sheet. Each maker is tuned for a different kind of coffee person.</p>
+        </div>
+        <div class="model-grid">
+          <article class="model-card">
+            <div class="model-top"><span class="model-label">No. 01</span><span class="pill">Pour over</span></div>
+            <div class="model-drawing" aria-hidden="true"><svg viewBox="0 0 170 160"><path d="M46 31h78l-10 32H56L46 31Z" fill="none" stroke="var(--bg)" stroke-width="3"/><path d="M58 63h54l-12 33H70L58 63Z" fill="var(--bg)" opacity=".16" stroke="var(--bg)" stroke-width="3"/><path d="M43 96h84l-10 42H53L43 96Z" fill="none" stroke="var(--bg)" stroke-width="3"/><path d="M53 111c12 7 24 10 32 10s20-3 32-10" fill="none" stroke="var(--bg)" stroke-width="3"/></svg></div>
+            <h3>The Daily</h3><p>A quiet, tactile pour-over for slow starts and one excellent cup.</p>
+            <div class="model-footer"><span class="price">$148<small>Free shipping</small></span><button class="btn btn-secondary add-btn" data-name="The Daily">Choose</button></div>
+          </article>
+          <article class="model-card featured">
+            <div class="model-top"><span class="model-label">No. 02</span><span class="pill">Most loved</span></div>
+            <div class="model-drawing" aria-hidden="true"><svg viewBox="0 0 170 160"><path d="M43 29h84l-12 29H55L43 29Z" fill="var(--bg)"/><path d="M57 58h56l-12 32H69L57 58Z" fill="var(--bg)"/><path d="M47 90h76l-11 52H58L47 90Z" fill="none" stroke="var(--bg)" stroke-width="3"/><path d="M59 108c12 8 23 10 26 10s14-2 26-10" fill="none" stroke="var(--bg)" stroke-width="3"/><path d="M123 101c18 0 27 8 27 19s-9 19-27 19" fill="none" stroke="var(--bg)" stroke-width="3"/></svg></div>
+            <h3>The House</h3><p>Our balanced all-rounder: programmable, precise, and ready when you are.</p>
+            <div class="model-footer"><span class="price">$228<small>Free shipping</small></span><button class="btn btn-secondary add-btn" data-name="The House">Choose</button></div>
+          </article>
+          <article class="model-card">
+            <div class="model-top"><span class="model-label">No. 03</span><span class="pill">For a crowd</span></div>
+            <div class="model-drawing" aria-hidden="true"><svg viewBox="0 0 170 160"><path d="M41 34h88l-10 27H51L41 34Z" fill="none" stroke="var(--bg)" stroke-width="3"/><path d="M56 61h58l-10 29H66L56 61Z" fill="var(--bg)" opacity=".16" stroke="var(--bg)" stroke-width="3"/><path d="M38 90h94l-9 52H47L38 90Z" fill="none" stroke="var(--bg)" stroke-width="3"/><path d="M132 101c16 0 25 8 25 18s-9 18-25 18" fill="none" stroke="var(--bg)" stroke-width="3"/></svg></div>
+            <h3>The Table</h3><p>A generous batch brewer for long tables, late brunches, and second cups.</p>
+            <div class="model-footer"><span class="price">$298<small>Free shipping</small></span><button class="btn btn-secondary add-btn" data-name="The Table">Choose</button></div>
+          </article>
+        </div>
+        <p class="status" id="selection-status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="section" id="compare" data-od-id="compare">
+      <div class="container">
+        <div class="section-head"><div><p class="eyebrow">At a glance</p><h2>Find the right fit.</h2></div><p class="section-intro">A little context for the practical questions that come after the first impression.</p></div>
+        <div class="table-wrap">
+          <table class="ds-table">
+            <thead><tr><th scope="col">Details</th><th scope="col">The Daily</th><th scope="col">The House</th><th scope="col">The Table</th></tr></thead>
+            <tbody>
+              <tr><td>Brew style</td><td>Pour over</td><td>Drip</td><td>Batch drip</td></tr>
+              <tr><td>Serves</td><td>1–2 cups</td><td>1–6 cups</td><td>1–10 cups</td></tr>
+              <tr><td>Programmable</td><td class="check">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+              <tr><td>Keep warm</td><td class="check">—</td><td>45 min</td><td>60 min</td></tr>
+              <tr><td>Best for</td><td>Slow mornings</td><td>Everyday ease</td><td>Good company</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" data-od-id="cta-strip">
+      <div class="container">
+        <p class="eyebrow">Make room for good coffee</p>
+        <h2>Your best cup is a daily decision.</h2>
+        <p class="lead">Choose a maker that earns its place on the counter.</p>
+        <a class="btn btn-primary" href="#makers">Shop all makers</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pagefoot" data-od-id="footer">
+    <div class="container pagefoot-inner"><span>© 2026 Stillhouse Coffee</span><span>Made for the daily ritual · hello@stillhouse.example</span></div>
+  </footer>
+  <script>
+    document.querySelectorAll('.add-btn').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var status = document.getElementById('selection-status');
+        status.textContent = this.dataset.name + ' selected — we saved your place to start.';
+      });
+    });
+  </script>
+</body>
+</html>

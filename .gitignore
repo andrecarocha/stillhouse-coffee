@@ -1,0 +1,9 @@
+# Borg agent install sandbox — throwaway packages, never project source.
+.borg/
+node_modules/
+__pycache__/
+.venv/
+venv/
+target/
+dist/
+build/
